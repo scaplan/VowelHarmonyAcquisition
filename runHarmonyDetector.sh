@@ -2,20 +2,17 @@
 
 outputdir="outputs"
 mkdir -p $outputdir #make output dir if it doesn't already exist
-wordlistsourcedir='/mnt/nlpgridio2/nlp/users/lorelei/vowel-harmony-data/'
+wordlistsourcedir='Wordlists/'
+vowellistsourcedir='Vowels/'
 #wordlistsourcedir='/home1/s/spcaplan/Dropbox/penn_CS_account/UPENN_LORELEI/utils/'
 
 declare -a languageList
 tininess=""
 #tininess="500_"
-#languageList=("incident" "hun" "tur" "ger" "eng" "uig" "fin")
-#languageList=( "500_fin" "500_hun" "500_tur" "500_ger" "500_eng" "500_uig")
-#languageList=("fin" "hun" "tur" "ger")
-#languageList=("ger" "tur" "uig" "eng")
-#languageList=("finunseg")
-languageList=("longvowels_est")
-#languageList=("hun_mapped")
+languageList=("hun" "tur" "ger" "eng" "fin")
+#languageList=("hun" "tur" "ger" "eng" "fin" "uig" "est")
 
+#Generate data sets without word segmentation
 #gen finnish unseg
 #python wikitext_to_unsegsentences.py /mnt/nlpgridio2/nlp/users/lorelei/wikipedia-xml/text/fiwiki-20160701-pages-articles.xml.bz2_text fin_unsegall.txt
 #head -n 78846 /mnt/nlpgridio2/nlp/users/lorelei/vowel-harmony-data/wordlist_finunsegshort.txt > /mnt/nlpgridio2/nlp/users/lorelei/vowel-harmony-data/wordlist_finunseg.txt
@@ -37,7 +34,7 @@ for currLanguage in "${languageList[@]}"; do
 	NERoutputfile=$outputdir/$tininess$currLanguage"_NER_output.txt"
 	NERoutputfileLocal=$outputdir/$tininess$currLanguage"_NER_output_local.txt"
 	NERoutputfileAntilocal=$outputdir/$tininess$currLanguage"_NER_output_antilocal.txt"
-	vowellist="harmony_detector_testvowels_"$currLanguage".txt"
+	vowellist=$vowellistsourcedir"harmony_detector_testvowels_"$currLanguage".txt"
 	echo "Calculating $tininess$currLanguage Harmony Clusters and NER Candidates"
 	python harmony_detector.py $currwordlist $NERoutputfile $vowellist
 
